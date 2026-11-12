@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Maktabi İnşaat | Mimari Tasarım & Müteahhitlik</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased relative architect-grid overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300" id="navbar">
+    <div class="nav-inner max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2 min-w-0">
+      
+      <!-- LOGO (Saf CSS ile Açıkta Siyah, Koyu Modda Beyaz) -->
+      <a href="#hero" class="flex items-center gap-2 group shrink-0 min-w-0">
+        <img src="assets/logo.png" alt="Maktabi İnşaat" class="logo-light-theme nav-logo">
+        <img src="assets/logo-white.svg" alt="Maktabi İnşaat" class="logo-dark-theme nav-logo">
+      </a>
+
+      <!-- ORTA MENÜ -->
+      <nav class="hidden lg:flex items-center justify-center gap-4 xl:gap-8 text-[13px] xl:text-sm font-semibold whitespace-nowrap flex-1 min-w-0 px-3">
+        <a href="#hero" class="hover:text-[#207487] transition-colors whitespace-nowrap" data-i18n="nav_home">Ana Sayfa</a>
+        <a href="#about" class="hover:text-[#207487] transition-colors whitespace-nowrap" data-i18n="nav_about">Kurumsal</a>
+        <a href="#services" class="hover:text-[#207487] transition-colors whitespace-nowrap" data-i18n="nav_services">Faaliyetlerimiz</a>
+        <a href="#projects" class="hover:text-[#207487] transition-colors whitespace-nowrap" data-i18n="nav_projects">Projelerimiz</a>
+        <a href="#contact" class="hover:text-[#207487] transition-colors whitespace-nowrap" data-i18n="nav_contact">İletişim</a>
+      </nav>
+
+      <!-- SAĞ KONTROLLER -->
+      <div class="flex items-center gap-1 sm:gap-2 xl:gap-3 shrink-0">
+        <button onclick="toggleDarkMode()" id="darkModeBtn" class="ctrl-btn w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:scale-105 shadow-sm flex items-center justify-center shrink-0" aria-label="Tema">
+          <i data-lucide="moon" id="themeIcon" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        </button>
+
+        <div class="lang-pill-container flex items-center p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs shrink-0">
+          <button onclick="setLanguage('tr')" id="btn-tr" class="lang-btn active px-1.5 sm:px-3 py-1 rounded-full">TR</button>
+          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-1.5 sm:px-3 py-1 rounded-full">EN</button>
+          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-1.5 sm:px-3 py-1 rounded-full">عربي</button>
+        </div>
+
+        <a href="https://wa.me/905535333370" target="_blank" class="nav-wa hidden sm:inline-flex items-center justify-center gap-2 bg-[#207487] hover:bg-[#155563] text-white text-xs font-bold rounded-full btn-magnetic shadow-md shrink-0">
+          <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+          <span class="nav-cta-label text-white" data-i18n="nav_cta">WhatsApp'tan Ulaşın</span>
+        </a>
+
+        <button type="button" id="menuToggle" class="ctrl-btn lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-sm flex items-center justify-center shrink-0" onclick="toggleMobileMenu()" aria-label="Menü" aria-expanded="false" aria-controls="mobileMenu">
+          <i data-lucide="menu" id="menuIcon" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MOBİL / TABLET MENÜ -->
+    <div id="mobileMenu" class="mobile-menu lg:hidden" aria-hidden="true">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col gap-1">
+        <a href="#hero" class="mobile-nav-link" data-i18n="nav_home">Ana Sayfa</a>
+        <a href="#about" class="mobile-nav-link" data-i18n="nav_about">Kurumsal</a>
+        <a href="#services" class="mobile-nav-link" data-i18n="nav_services">Faaliyetlerimiz</a>
+        <a href="#projects" class="mobile-nav-link" data-i18n="nav_projects">Projelerimiz</a>
+        <a href="#contact" class="mobile-nav-link" data-i18n="nav_contact">İletişim</a>
+        <a href="https://wa.me/905535333370" target="_blank" class="mt-2 mb-1 inline-flex items-center justify-center gap-2 bg-[#207487] hover:bg-[#155563] text-white text-xs font-bold px-4 py-3 rounded-full btn-magnetic shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+          <span class="text-white" data-i18n="nav_cta">WhatsApp'tan Ulaşın</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative pt-24 pb-12 sm:pt-36 sm:pb-20 md:pt-44 md:pb-28 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-4 sm:space-y-6 relative z-10 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#207487]/10 border border-[#207487]/20 text-[#207487] text-[11px] sm:text-xs font-extrabold tracking-wide uppercase" data-i18n="hero_badge">
+          GÜVENLİ MİMARİ & MÜTEAHHİTLİK
+        </div>
+
+        <h1 class="text-[1.7rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.18] tracking-tight">
+          <span data-i18n="hero_title_1">Geleceğin Yaşam Alanlarını</span>
+          <span class="text-[#207487] !text-[#207487] block mt-1" data-i18n="hero_title_2">Güvenle İnşa Ediyoruz.</span>
+        </h1>
+
+        <p class="text-sm sm:text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed text-muted-custom" data-i18n="hero_desc">
+          Maktabi İnşaat; modern mühendislik, estetik mimari ve ödün vermediğimiz kalite standartlarıyla hayatınıza değer katan sağlam yapılar üretir.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-2 w-full sm:w-auto">
+          <a href="#projects" class="w-full sm:w-auto justify-center bg-[#207487] hover:bg-[#155563] text-white font-bold px-7 py-3 rounded-xl btn-magnetic text-sm inline-flex items-center gap-2 shadow-lg shadow-[#207487]/20" data-i18n="hero_btn_explore">
+            <span class="text-white">Projelerimizi İnceleyin</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-white shrink-0"></i>
+          </a>
+          <a href="#contact" class="w-full sm:w-auto justify-center luxury-card font-bold px-7 py-3 rounded-xl btn-magnetic text-sm inline-flex items-center gap-2" data-i18n="hero_btn_contact">
+            Bizimle İletişime Geçin
+          </a>
+        </div>
+
+        <!-- İstatistik Çubuğu -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-6 pt-6 sm:pt-8 border-t border-slate-300 dark:border-slate-800 text-left">
+          <div class="min-w-0 pr-1">
+            <span class="text-[9px] sm:text-xs text-[#207487] font-bold block mb-0.5 tracking-wide">01. STANDART</span>
+            <h4 class="text-[13px] sm:text-xl font-black leading-tight break-words" data-i18n="stat_exp">Güven & Kalite</h4>
+            <p class="text-[9px] sm:text-xs text-muted-custom font-medium mt-0.5 leading-snug" data-i18n="stat_exp_sub">Yüksek Mühendislik</p>
+          </div>
+          <div class="min-w-0 pr-1">
+            <span class="text-[9px] sm:text-xs text-[#207487] font-bold block mb-0.5 tracking-wide">02. DEPREM</span>
+            <h4 class="text-[13px] sm:text-xl font-black leading-tight break-words" data-i18n="stat_safety">%100 Dayanıklı</h4>
+            <p class="text-[9px] sm:text-xs text-muted-custom font-medium mt-0.5 leading-snug" data-i18n="stat_safety_sub">Yönetmeliğe Uyum</p>
+          </div>
+          <div class="min-w-0">
+            <span class="text-[9px] sm:text-xs text-[#207487] font-bold block mb-0.5 tracking-wide">03. TAAHHÜT</span>
+            <h4 class="text-[13px] sm:text-xl font-black leading-tight break-words" data-i18n="stat_projects">Anahtar Teslim</h4>
+            <p class="text-[9px] sm:text-xs text-muted-custom font-medium mt-0.5 leading-snug" data-i18n="stat_projects_sub">Zamanında Teslim</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ Görsel (Neva Kent) -->
+      <div class="lg:col-span-5 relative z-10" id="heroImageBlock">
+        <div class="relative mx-auto w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-none">
+          <div class="luxury-card p-2 sm:p-3 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden relative group">
+            <img src="assets/neva-kent.jpg" alt="Neva Kent - Maktabi İnşaat" class="w-full h-[260px] sm:h-[380px] md:h-[430px] lg:h-[470px] object-cover rounded-xl sm:rounded-2xl block group-hover:scale-105 transition-transform duration-700">
+            
+            <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-[#070E17]/95 backdrop-blur-md p-3 sm:p-4 rounded-xl text-white flex items-center justify-between border border-white/10 shadow-lg">
+              <div>
+                <p class="text-[10px] sm:text-[11px] text-[#207487] uppercase tracking-wider font-bold" data-i18n="contact_role">Şirket / Merkez</p>
+                <p class="font-bold text-xs sm:text-sm text-white" data-i18n="contact_company_name">Maktabi İnşaat</p>
+              </div>
+              <a href="https://wa.me/905535333370" target="_blank" class="bg-[#207487] text-white p-2 sm:p-2.5 rounded-lg hover:scale-105 transition-transform">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HAKKIMIZDA -->
+  <section id="about" class="py-16 sm:py-24 px-4 sm:px-6 relative z-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <div class="lg:col-span-6 space-y-4 sm:space-y-6">
+          <span class="text-xs font-bold text-[#207487] tracking-widest uppercase bg-[#207487]/10 px-3 py-1 rounded-full" data-i18n="about_badge">BİZ KİMİZ?</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight" data-i18n="about_title">Sağlam Temeller Üzerinde Yükselen Gelecek</h2>
+          <p class="leading-relaxed text-xs sm:text-sm md:text-base text-muted-custom" data-i18n="about_desc">
+            Maktabi İnşaat, konut ve ticari gayrimenkul geliştirme alanında öncü, yenilikçi ve güvenilir bir inşaat markasıdır. Amacımız; yalnızca binalar değil, aileniz için huzurlu, depreme dayanıklı ve nesiller boyu yaşayacak modern yaşam alanları kurmaktır.
+          </p>
+
+          <div class="space-y-3 pt-2">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-[#207487]/10 flex items-center justify-center text-[#207487] shrink-0 mt-0.5 sm:mt-0">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              </div>
+              <span class="font-semibold text-xs sm:text-sm leading-snug" data-i18n="about_feat_1">İleri Seviye Deprem Mühendisliği & Radye Temel</span>
+            </div>
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-[#207487]/10 flex items-center justify-center text-[#207487] shrink-0 mt-0.5 sm:mt-0">
+                <i data-lucide="layers" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              </div>
+              <span class="font-semibold text-xs sm:text-sm leading-snug" data-i18n="about_feat_2">Yüksek Isı, Nem ve Ses İzolasyonu Standartları</span>
+            </div>
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-[#207487]/10 flex items-center justify-center text-[#207487] shrink-0 mt-0.5 sm:mt-0">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              </div>
+              <span class="font-semibold text-xs sm:text-sm leading-snug" data-i18n="about_feat_3">Çevre Dostu, Sürdürülebilir ve Sertifikalı Malzemeler</span>
+            </div>
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-[#207487]/10 flex items-center justify-center text-[#207487] shrink-0 mt-0.5 sm:mt-0">
+                <i data-lucide="clock" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              </div>
+              <span class="font-semibold text-xs sm:text-sm leading-snug" data-i18n="about_feat_4">Şeffaf Sözleşme ve Zamanında Teslim Garantisi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
+          <div class="luxury-card p-3.5 sm:p-6 rounded-2xl space-y-2 min-w-0">
+            <span class="text-[10px] sm:text-xs font-bold text-[#207487]">01</span>
+            <i data-lucide="building-2" class="w-6 h-6 sm:w-8 sm:h-8 text-[#207487]"></i>
+            <h3 class="font-bold text-sm sm:text-base leading-snug" data-i18n="serv_1_title">Lüks Konut</h3>
+            <p class="text-[11px] sm:text-xs text-muted-custom leading-snug" data-i18n="serv_1_desc">Geniş yaşam alanları ve modern aile konsepti.</p>
+          </div>
+          <div class="luxury-card p-3.5 sm:p-6 rounded-2xl space-y-2 min-w-0">
+            <span class="text-[10px] sm:text-xs font-bold text-[#207487]">02</span>
+            <i data-lucide="refresh-cw" class="w-6 h-6 sm:w-8 sm:h-8 text-[#207487]"></i>
+            <h3 class="font-bold text-sm sm:text-base leading-snug" data-i18n="serv_2_title">Kentsel Dönüşüm</h3>
+            <p class="text-[11px] sm:text-xs text-muted-custom leading-snug" data-i18n="serv_2_desc">Riskli binalar yerine güvenli yapılar.</p>
+          </div>
+          <div class="luxury-card p-3.5 sm:p-6 rounded-2xl space-y-2 min-w-0">
+            <span class="text-[10px] sm:text-xs font-bold text-[#207487]">03</span>
+            <i data-lucide="briefcase" class="w-6 h-6 sm:w-8 sm:h-8 text-[#207487]"></i>
+            <h3 class="font-bold text-sm sm:text-base leading-snug" data-i18n="serv_3_title">Ticari Alanlar</h3>
+            <p class="text-[11px] sm:text-xs text-muted-custom leading-snug" data-i18n="serv_3_desc">İş dünyasına uygun modern dükkanlar.</p>
+          </div>
+          <div class="luxury-card p-3.5 sm:p-6 rounded-2xl space-y-2 min-w-0 bg-[#207487] text-white border-none shadow-lg shadow-[#207487]/20">
+            <span class="text-[10px] sm:text-xs font-bold text-white/80">04</span>
+            <i data-lucide="award" class="w-6 h-6 sm:w-8 sm:h-8 text-white"></i>
+            <h3 class="font-bold text-sm sm:text-base text-white leading-snug" data-i18n="serv_4_title">Müteahhitlik</h3>
+            <p class="text-[11px] sm:text-xs text-white/80 leading-snug" data-i18n="serv_4_desc">Anahtar teslim güvenilir inşaat.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAALİYET ALANLARIMIZ -->
+  <section id="services" class="py-16 sm:py-24 px-4 sm:px-6 relative z-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto space-y-8 sm:space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+        <span class="text-xs font-bold text-[#207487] tracking-widest uppercase bg-[#207487]/10 px-3 py-1 rounded-full" data-i18n="services_badge">FAALİYET ALANLARIMIZ</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold" data-i18n="services_title">Kapsamlı İnşaat & Gayrimenkul Çözümleri</h2>
+        <p class="text-xs sm:text-sm text-muted-custom" data-i18n="services_desc">Temelden anahtar teslime kadar tüm inşaat süreçlerini kendi bünyemizde titizlikle yönetiyoruz.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div class="luxury-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#207487]/10 flex items-center justify-center text-[#207487]">
+              <i data-lucide="home" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <span class="text-xl sm:text-2xl font-black text-[#207487]">01</span>
+          </div>
+          <h4 class="font-bold text-base sm:text-xl" data-i18n="serv_1_title">Lüks Konut & Rezidans</h4>
+          <p class="text-xs sm:text-sm text-muted-custom leading-relaxed" data-i18n="serv_1_desc">Geniş yaşam alanları, modern mimari ve konforu bir arada sunan aile odaklı lüks konut projeleri.</p>
+        </div>
+
+        <div class="luxury-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#207487]/10 flex items-center justify-center text-[#207487]">
+              <i data-lucide="shield" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <span class="text-xl sm:text-2xl font-black text-[#207487]">02</span>
+          </div>
+          <h4 class="font-bold text-base sm:text-xl" data-i18n="serv_2_title">Kentsel Dönüşüm & Yenileme</h4>
+          <p class="text-xs sm:text-sm text-muted-custom leading-relaxed" data-i18n="serv_2_desc">Eski ve riskli yapıları yıkarak yerlerine depreme tam dayanıklı, çağdaş ve değerli konutlar inşa ediyoruz.</p>
+        </div>
+
+        <div class="luxury-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#207487]/10 flex items-center justify-center text-[#207487]">
+              <i data-lucide="store" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <span class="text-xl sm:text-2xl font-black text-[#207487]">03</span>
+          </div>
+          <h4 class="font-bold text-base sm:text-xl" data-i18n="serv_3_title">Ticari Yapılar & Ofisler</h4>
+          <p class="text-xs sm:text-sm text-muted-custom leading-relaxed" data-i18n="serv_3_desc">İş dünyasının dinamiklerine uygun modern mağaza, dükkan ve çok fonksiyonlu ticari alanlar.</p>
+        </div>
+
+        <div class="luxury-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#207487]/10 flex items-center justify-center text-[#207487]">
+              <i data-lucide="key" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <span class="text-xl sm:text-2xl font-black text-[#207487]">04</span>
+          </div>
+          <h4 class="font-bold text-base sm:text-xl" data-i18n="serv_4_title">Anahtar Teslim Müteahhitlik</h4>
+          <p class="text-xs sm:text-sm text-muted-custom leading-relaxed" data-i18n="serv_4_desc">Projelendirme, kaba inşaat, ince işçilik ve ruhsat aşamalarının tümünü kapsayan güvenilir müteahhitlik.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJELERİMİZ -->
+  <section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 relative z-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto space-y-8 sm:space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+        <span class="text-xs font-bold text-[#207487] tracking-widest uppercase bg-[#207487]/10 px-3 py-1 rounded-full" data-i18n="projects_badge">PROJELERİMİZ</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold" data-i18n="projects_title">İmzamızı Taşıyan Değerli Yapılar</h2>
+        <p class="text-xs sm:text-sm text-muted-custom" data-i18n="projects_desc">Her metrekaresinde birinci sınıf işçilik ve mimari zarafeti buluşturduğumuz seçkin çalışmalarımız.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        
+        <!-- 1. NEVA KENT -->
+        <div class="luxury-card rounded-2xl sm:rounded-3xl overflow-hidden group">
+          <div class="h-52 sm:h-64 overflow-hidden relative">
+            <img src="assets/neva-kent.jpg" alt="Neva Kent" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-[#207487] text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md" data-i18n="proj_ongoing_badge">DEVAM EDEN PROJE</span>
+          </div>
+          <div class="p-5 sm:p-6">
+            <h4 class="font-bold text-base sm:text-lg leading-snug" data-i18n="proj_1_title">NEVA KENT</h4>
+            <p class="text-xs text-muted-custom mt-1 leading-relaxed" data-i18n="proj_1_desc">Modern mimari, ferah yaşam alanları ve depreme tam dayanıklı sağlam temellerle yükselen prestijli konut projemiz.</p>
+          </div>
+        </div>
+
+        <!-- 2. SENA APARTMANI -->
+        <div class="luxury-card rounded-2xl sm:rounded-3xl overflow-hidden group">
+          <div class="h-52 sm:h-64 overflow-hidden relative">
+            <img src="assets/sena-apartmani.jpg" alt="Sena Apartmanı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-[#070E17] text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md" data-i18n="proj_completed_badge">TAMAMLANAN</span>
+          </div>
+          <div class="p-5 sm:p-6">
+            <h4 class="font-bold text-base sm:text-lg leading-snug" data-i18n="proj_2_title">SENA APARTMANI</h4>
+            <p class="text-xs text-muted-custom mt-1 leading-relaxed" data-i18n="proj_2_desc">Eksiksiz işçilik, yüksek malzeme kalitesi ve zamanında anahtar teslimiyle tamamlanan örnek yaşam projemiz.</p>
+          </div>
+        </div>
+
+        <!-- 3. PLANLANAN PROJE -->
+        <div class="luxury-card rounded-2xl sm:rounded-3xl overflow-hidden group">
+          <div class="h-52 sm:h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Planlanan Proje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-[#070E17] text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md" data-i18n="proj_planned_badge">PLANLANAN PROJE</span>
+          </div>
+          <div class="p-5 sm:p-6">
+            <h4 class="font-bold text-base sm:text-lg leading-snug" data-i18n="proj_3_title">MAKTABİ MODERN YAŞAM</h4>
+            <p class="text-xs text-muted-custom mt-1 leading-relaxed" data-i18n="proj_3_desc">Şehrin gelişen bölgesinde planlanan, ticari dükkanlar ve lüks daireleri buluşturan yeni nesil karma yaşam konsepti.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BİZE ULAŞIN -->
+  <section id="contact" class="py-16 sm:py-24 px-3 sm:px-6 relative z-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto contact-outer-card rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 relative overflow-hidden shadow-xl transition-all duration-300">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center relative z-10">
+        
+        <div class="lg:col-span-5 space-y-4 sm:space-y-6">
+          <span class="text-xs font-bold text-[#207487] tracking-widest uppercase bg-[#207487]/10 px-3 py-1 rounded-full" data-i18n="contact_badge">BİZE ULAŞIN</span>
+          <h2 class="text-xl sm:text-3xl font-extrabold leading-snug" data-i18n="contact_title">Yeni Projeniz veya Dairelerimiz İçin Görüşelim</h2>
+          <p class="text-xs sm:text-sm text-muted-custom leading-relaxed" data-i18n="contact_desc">
+            Projelerimiz, kat planları ve güncel satış detayları hakkında doğrudan şirket merkezimizle iletişime geçebilirsiniz.
+          </p>
+
+          <div class="pt-2 sm:pt-4 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#207487]/10 flex items-center justify-center text-[#207487] shrink-0">
+                <i data-lucide="building" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+              </div>
+              <div>
+                <p class="text-[10px] sm:text-[11px] text-muted-custom" data-i18n="contact_role">Şirket / Merkez</p>
+                <p class="font-bold text-xs sm:text-sm" data-i18n="contact_company_name">Maktabi İnşaat</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#207487] flex items-center justify-center text-white shrink-0">
+                <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
+              </div>
+              <div>
+                <p class="text-[10px] sm:text-[11px] text-muted-custom" data-i18n="contact_phone">Kurumsal Hat & WhatsApp</p>
+                <a href="tel:05535333370" class="font-bold text-xs sm:text-sm hover:text-[#207487] transition-colors">0553 533 33 70</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 contact-form-inner p-4 sm:p-7 rounded-xl sm:rounded-2xl shadow-sm">
+          <form id="leadForm" onsubmit="sendToWhatsApp(event)" class="space-y-3 sm:space-y-4">
+            <div>
+              <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1 text-muted-custom" data-i18n="form_name">Adınız Soyadınız</label>
+              <input type="text" id="custName" required placeholder="Örn: Mehmet Yılmaz" class="form-custom-input w-full px-3.5 py-2.5 sm:py-3 text-sm rounded-lg sm:rounded-xl">
+            </div>
+
+            <div>
+              <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1 text-muted-custom" data-i18n="form_phone">Telefon Numaranız</label>
+              <input type="tel" id="custPhone" required placeholder="05XX XXX XX XX" class="form-custom-input w-full px-3.5 py-2.5 sm:py-3 text-sm rounded-lg sm:rounded-xl">
+            </div>
+
+            <div>
+              <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1 text-muted-custom" data-i18n="form_note">Notunuz</label>
+              <textarea id="custNote" rows="2" placeholder="Neva Kent ve diğer projeleriniz hakkında bilgi almak istiyorum..." class="form-custom-input w-full px-3.5 py-2.5 sm:py-3 text-sm rounded-lg sm:rounded-xl"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-[#207487] hover:bg-[#155563] text-white font-bold py-3 sm:py-3.5 rounded-lg sm:rounded-xl transition-all btn-magnetic flex items-center justify-center gap-2 text-xs sm:text-sm shadow-md px-3">
+              <i data-lucide="send" class="w-4 h-4 text-white shrink-0"></i>
+              <span class="text-white text-center leading-snug" data-i18n="form_btn">WhatsApp Üzerinden İletişime Geç</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER (Saf CSS ile Açıkta Siyah, Koyu Modda Beyaz) -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 sm:py-12 px-4 sm:px-6 text-[11px] sm:text-xs relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left min-w-0">
+      <div class="flex items-center gap-2">
+        <img src="assets/logo.png" alt="Maktabi" class="logo-light-theme h-6 sm:h-7 w-auto object-contain">
+        <img src="assets/logo-white.svg" alt="Maktabi" class="logo-dark-theme h-6 sm:h-7 w-auto object-contain">
+      </div>
+      <p class="text-muted-custom font-medium" data-i18n="footer_text">Maktabi İnşaat ve Konut Amaçlı Gayrimenkul. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script src="translations.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

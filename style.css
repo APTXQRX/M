@@ -1,0 +1,342 @@
+:root {
+  --teal-primary: #207487;
+  --teal-hover: #155563;
+  
+  /* AÇIK MOD */
+  --bg-page: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-inner-form: #F1F5F9;
+  --border-color: #E2E8F0;
+  --text-title: #0F172A;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --nav-bg: rgba(248, 250, 252, 0.95);
+  
+  --ctrl-bg: #FFFFFF;
+  --ctrl-border: #CBD5E1;
+  --ctrl-text: #0F172A;
+}
+
+html.dark {
+  /* KARANLIK MOD */
+  --bg-page: #060C14;
+  --bg-card: #0B1726;
+  --bg-inner-form: #070E17;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-title: #F8FAFC;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --nav-bg: rgba(6, 12, 20, 0.95);
+  
+  --ctrl-bg: #0E1B2B;
+  --ctrl-border: rgba(255, 255, 255, 0.15);
+  --ctrl-text: #F8FAFC;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  max-width: 100%;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+img, svg, video {
+  max-width: 100%;
+}
+
+button, a, input, textarea, select {
+  touch-action: manipulation;
+}
+
+html[lang="ar"] body {
+  font-family: 'Cairo', sans-serif;
+}
+
+/* LOGO DEĞİŞTİRME MOTORU (İşletim Sistemini Dinlemez, Sitedeki Butona Bakar) */
+.logo-dark-theme {
+  display: none !important;
+}
+.logo-light-theme {
+  display: block !important;
+}
+
+html.dark .logo-dark-theme {
+  display: block !important;
+}
+html.dark .logo-light-theme {
+  display: none !important;
+}
+
+/* Mimari Izgara */
+.architect-grid {
+  background-image: 
+    linear-gradient(to right, rgba(32, 116, 135, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(32, 116, 135, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+html.dark .architect-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.glass-nav {
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Düğmeler */
+.ctrl-btn {
+  background-color: var(--ctrl-bg) !important;
+  border: 1px solid var(--ctrl-border) !important;
+  color: var(--ctrl-text) !important;
+  transition: all 0.2s ease;
+}
+
+.lang-pill-container {
+  background-color: var(--ctrl-bg) !important;
+  border: 1px solid var(--ctrl-border) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  white-space: nowrap;
+}
+
+.lang-btn {
+  color: var(--ctrl-text);
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.lang-btn.active {
+  background-color: var(--teal-primary) !important;
+  color: #FFFFFF !important;
+}
+
+.lang-btn:not(.active):hover {
+  color: var(--teal-primary) !important;
+}
+
+/* Kartlar */
+.luxury-card {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-body);
+  transition: all 0.35s ease;
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--teal-primary) !important;
+  box-shadow: 0 15px 30px -10px rgba(32, 116, 135, 0.2);
+}
+
+/* Form Bölümü */
+.contact-outer-card {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.contact-form-inner {
+  background-color: var(--bg-inner-form) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.form-custom-input {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-title) !important;
+  font-size: 16px;
+}
+
+.form-custom-input:focus {
+  border-color: var(--teal-primary) !important;
+  outline: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--text-title) !important;
+}
+
+.text-muted-custom {
+  color: var(--text-muted) !important;
+}
+
+.btn-magnetic {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-magnetic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(32, 116, 135, 0.4);
+}
+
+/* Logo: aynı görüntü, taşmayı önleyen ölçek */
+.nav-logo {
+  height: 2rem !important;
+  width: auto !important;
+  max-width: min(42vw, 156px) !important;
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (min-width: 640px) {
+  .nav-logo {
+    height: 2.5rem !important;
+    max-width: 200px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-logo {
+    height: 2.75rem !important;
+    max-width: 220px !important;
+  }
+}
+
+html[dir="rtl"] .nav-logo {
+  object-position: right center;
+}
+
+#navbar {
+  padding-top: env(safe-area-inset-top);
+}
+
+.nav-inner {
+  min-width: 0;
+}
+
+.nav-wa {
+  width: 2rem;
+  height: 2rem;
+}
+
+.nav-cta-label {
+  display: none;
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .nav-wa {
+    width: auto;
+    height: auto;
+    padding: 0.625rem 1rem;
+  }
+  .nav-cta-label {
+    display: inline;
+  }
+}
+
+@media (min-width: 1280px) {
+  .nav-wa {
+    width: auto;
+    height: auto;
+    padding: 0.625rem 1rem;
+  }
+  .nav-cta-label {
+    display: inline;
+  }
+}
+
+/* Mobil menü — mevcut cam navbar estetiği */
+.mobile-menu {
+  display: none !important;
+  background: var(--bg-page);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.12);
+}
+
+.mobile-menu.open {
+  display: block !important;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.8rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  color: var(--text-title);
+  min-height: 44px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: rgba(32, 116, 135, 0.08);
+  color: var(--teal-primary);
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, p, span, a, button {
+  overflow-wrap: break-word;
+}
+
+/* Dokunmatikte hover'ın yapışmasını engelle — görünümü değiştirmez */
+@media (hover: none) {
+  .luxury-card:hover {
+    transform: none;
+  }
+
+  .btn-magnetic:hover {
+    transform: none;
+  }
+}
+
+/* Küçük telefon (320–359) */
+@media (max-width: 359px) {
+  .nav-logo {
+    height: 1.55rem !important;
+    max-width: 102px !important;
+  }
+
+  .lang-btn {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    font-size: 9px;
+  }
+}
+
+/* Tablet: hero görseli daha iyi doldursun */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #heroImageBlock {
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Masaüstü navbar: linkler tek satırda kalsın */
+@media (min-width: 1024px) {
+  .nav-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+}
+
+footer.border-t {
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 640px) {
+  footer.border-t {
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+  }
+}
+
+html[dir="rtl"] .mobile-nav-link {
+  text-align: right;
+}
